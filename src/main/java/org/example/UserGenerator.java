@@ -11,12 +11,4 @@ public class UserGenerator {
         return new User(email,password,name);
     }
 
-    public static User withNotEmail(){
-        Faker faker = new Faker();
-        final String email = "";
-        final String password = faker.internet().password(6,12);
-        final String name = faker.name().firstName();
-        return new User(email,password,name);
-
-    }
 }

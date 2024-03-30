@@ -55,9 +55,11 @@ public class CreateUserTest {
         Assert.assertEquals("User already exists", message);
     }
 
+    //Создание пользователя без логина
     @Test
     public void usersCreatedWithNotEmail(){
-        user = UserGenerator.withNotEmail();
+        user = UserGenerator.withAllData();
+        user.setEmail(null);
         ValidatableResponse response = userClient.create(user);
         String message = response.extract().path("message");
 
@@ -65,6 +67,32 @@ public class CreateUserTest {
         Assert.assertEquals("Email, password and name are required fields", message);
 
     }
+    //создание пользователя без пароля
+    @Test
+    public void usersCreatedWithNotPassword(){
+        user = UserGenerator.withAllData();
+        user.setPassword(null);
+        ValidatableResponse response = userClient.create(user);
+        String message = response.extract().path("message");
+
+        response.statusCode(403);
+        Assert.assertEquals("Email, password and name are required fields", message);
+
+    }
+
+    //создание пользователя без имени
+    @Test
+    public void usersCreatedWithNotName(){
+        user = UserGenerator.withAllData();
+        user.setName(null);
+        ValidatableResponse response = userClient.create(user);
+        String message = response.extract().path("message");
+
+        response.statusCode(403);
+        Assert.assertEquals("Email, password and name are required fields", message);
+
+    }
+
 
 
 }
