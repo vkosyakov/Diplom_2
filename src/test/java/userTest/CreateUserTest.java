@@ -1,9 +1,10 @@
 package userTest;
 
 import io.restassured.response.ValidatableResponse;
-import org.example.User;
-import org.example.UserClient;
-import org.example.UserGenerator;
+import org.example.rest.RestClient;
+import org.example.user.User;
+import org.example.user.UserClient;
+import org.example.user.UserGenerator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,7 +17,7 @@ public class CreateUserTest {
 
     private UserClient userClient;
     private User user;
-    private String tocken;
+    private String token;
 
     @Before
     public void createTestData(){
@@ -27,8 +28,9 @@ public class CreateUserTest {
 @After
 
     public void cleanUp(){
-        if(tocken!= null)
-        userClient.delete(tocken);
+        if(token != null) {
+           userClient.delete(token).statusCode(202);
+        }
     }
     //Создание пользователя
    @Test
@@ -38,15 +40,23 @@ public class CreateUserTest {
         response.assertThat().body("accessToken", notNullValue())
                 .and().statusCode(200);
 
-        tocken = response.extract().path("accessToken");
+        token = response.extract().path("accessToken");
+
+        StringBuilder sb = new StringBuilder(token);
+        sb.delete(0,7);
+        token = sb.toString();
     }
 
     //Создание уже зарегистрированного пользователя
     @Test
-    public void usersCreatedWithAuto(){
+    public void usersCreatedWithAuth(){
         user = UserGenerator.withAllData();
         ValidatableResponse response = userClient.create(user);
-        tocken = response.extract().path("accessToken");
+
+        token = response.extract().path("accessToken");
+        StringBuilder sb = new StringBuilder(token);
+        sb.delete(0,7);
+        token = sb.toString();
 
         response = userClient.create(user);
         String message = response.extract().path("message");

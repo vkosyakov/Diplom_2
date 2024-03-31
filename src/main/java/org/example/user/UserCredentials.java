@@ -1,8 +1,9 @@
-package org.example;
+package org.example.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.rest.RestClient;
 
 @Getter
 @Setter

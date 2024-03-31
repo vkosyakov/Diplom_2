@@ -1,10 +1,10 @@
 package userTest;
 
 import io.restassured.response.ValidatableResponse;
-import org.example.User;
-import org.example.UserClient;
-import org.example.UserCredentials;
-import org.example.UserGenerator;
+import org.example.user.User;
+import org.example.user.UserClient;
+import org.example.user.UserCredentials;
+import org.example.user.UserGenerator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,8 +15,8 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 public class LoginUserTest {
     private UserClient userClient;
     private User user;
-    private String refreshTocken;
-    private String accessTocken;
+    private String refreshToken;
+    private String accessToken;
 
 
     @Before
@@ -25,10 +25,10 @@ public class LoginUserTest {
     }
     @After
     public void tearDown(){
-        if(refreshTocken!= null)
-            userClient.logout(refreshTocken);
-        if (accessTocken != null)
-            userClient.delete(accessTocken);
+        if(refreshToken != null)
+            userClient.logout(refreshToken);
+        if (accessToken != null)
+            userClient.delete(accessToken);
     }
 
     //логин под авторизованным пользователем
@@ -37,11 +37,14 @@ public class LoginUserTest {
         user = UserGenerator.withAllData();
         ValidatableResponse response = userClient.create(user);
 
-        accessTocken = response.extract().path("accessTocken");
+        accessToken = response.extract().path("accessToken");
+        StringBuilder sb = new StringBuilder(accessToken);
+        sb.delete(0,7);
+        accessToken = sb.toString();
 
         response = userClient.login(UserCredentials.from(user));
 
-        refreshTocken = response.extract().path("refreshToken");
+        refreshToken = response.extract().path("refreshToken");
 
         response.assertThat().body("refreshToken", notNullValue())
                 .and().statusCode(200);
