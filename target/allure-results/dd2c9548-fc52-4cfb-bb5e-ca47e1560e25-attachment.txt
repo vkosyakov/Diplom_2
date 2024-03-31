@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "orders": [
+    {
+      "_id": "660940559ed280001b3d5a3c",
+      "ingredients": [
+        "61c0c5a71d1f82001bdaaa6d",
+        "61c0c5a71d1f82001bdaaa6f"
+      ],
+      "status": "done",
+      "name": "Бессмертный флюоресцентный бургер",
+      "createdAt": "2024-03-31T10:52:05.702Z",
+      "updatedAt": "2024-03-31T10:52:06.061Z",
+      "number": 46544
+    },
+    {
+      "_id": "660940569ed280001b3d5a3d",
+      "ingredients": [
+        "61c0c5a71d1f82001bdaaa6d",
+        "61c0c5a71d1f82001bdaaa6f"
+      ],
+      "status": "done",
+      "name": "Бессмертный флюоресцентный бургер",
+      "createdAt": "2024-03-31T10:52:06.550Z",
+      "updatedAt": "2024-03-31T10:52:06.877Z",
+      "number": 46545
+    }
+  ],
+  "total": 46545,
+  "totalToday": 225
+}
