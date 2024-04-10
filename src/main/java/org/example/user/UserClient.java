@@ -1,5 +1,6 @@
 package org.example.user;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import org.example.rest.RestClient;
 
@@ -12,6 +13,7 @@ public class UserClient extends RestClient {
     private static final String LOGOUT_PATH = "api/auth/logout";
 
 
+    @Step("Create user")
     public ValidatableResponse create(User user) {
         return given()
                 .spec(getSpec())
@@ -21,6 +23,7 @@ public class UserClient extends RestClient {
 
     }
 
+    @Step("Login user")
     public ValidatableResponse login(UserCredentials credentials) {
         return
                 given()
@@ -31,6 +34,7 @@ public class UserClient extends RestClient {
 
     }
 
+    @Step("Delete user")
     public ValidatableResponse delete(String accessToken) {
         return
                 given()
@@ -40,6 +44,7 @@ public class UserClient extends RestClient {
                         .delete(DELETE_PATH).then().log().all();
     }
 
+    @Step("Logout user out of the site")
     public ValidatableResponse logout(String refreshToken) {
         return
                 given()
@@ -49,7 +54,7 @@ public class UserClient extends RestClient {
                         .post(LOGOUT_PATH).then();
 
     }
-
+    @Step("Update user data")
     public ValidatableResponse update(String token, User user) {
         return
                 given()

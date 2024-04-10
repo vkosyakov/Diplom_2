@@ -8,6 +8,7 @@ import org.example.rest.RestClient;
 import org.example.user.User;
 import org.example.user.UserClient;
 import org.example.user.UserGenerator;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ public class CreateOrderTest {
     private OrdersClient ordersClient;
     private UserClient userClient;
 
+    private String accessToken;
     private User user;
 
    @Before
@@ -26,7 +28,11 @@ public class CreateOrderTest {
         ordersClient = new OrdersClient();
         userClient = new UserClient();
     }
-
+    @After
+    public void cleanUp() {
+        if (accessToken != null)
+            userClient.delete(accessToken);
+    }
     //создание заказа без авторизации
     @Test
     public void createOrderWithOutAuth(){
@@ -53,10 +59,10 @@ public class CreateOrderTest {
     public void createOrderWithAuthAndIngredients(){
         user = UserGenerator.withAllData();
         ValidatableResponse response = userClient.create(user);
-        String accessToken = response.extract().path("accessToken");
+        accessToken = response.extract().path("accessToken");
 
         StringBuilder sb = new StringBuilder(accessToken);
-        sb.delete(0,6);
+        sb.delete(0,7);
         accessToken = sb.toString();
 
 

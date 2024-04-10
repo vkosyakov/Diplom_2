@@ -20,7 +20,6 @@ public class UpdateUserTest {
 
     }
     @After
-
     public void cleanUp() {
         if (token != null)
             userClient.delete(token);
