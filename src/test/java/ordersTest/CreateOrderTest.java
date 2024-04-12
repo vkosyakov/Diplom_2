@@ -4,7 +4,6 @@ import io.restassured.response.ValidatableResponse;
 import org.example.order.Order;
 import org.example.order.OrderGenerator;
 import org.example.order.OrdersClient;
-import org.example.rest.RestClient;
 import org.example.user.User;
 import org.example.user.UserClient;
 import org.example.user.UserGenerator;

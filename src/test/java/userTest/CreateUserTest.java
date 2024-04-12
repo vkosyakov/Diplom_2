@@ -1,7 +1,6 @@
 package userTest;
 
 import io.restassured.response.ValidatableResponse;
-import org.example.rest.RestClient;
 import org.example.user.User;
 import org.example.user.UserClient;
 import org.example.user.UserGenerator;

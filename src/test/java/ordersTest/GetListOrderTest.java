@@ -53,7 +53,7 @@ public class GetListOrderTest {
 
         //создание заказа под авторизованным пользователем
         order = OrderGenerator.withIngredients();
-        ValidatableResponse validatableResponse = ordersClient.createOrder(order, accessToken);
+        ordersClient.createOrder(order, accessToken);
 
         //получение списка заказа под созданным пользователем
         boolean success = ordersClient.createOrder(order,accessToken).extract().path("success");
